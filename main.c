@@ -256,6 +256,8 @@ int main() {
         printf("\n--- Menu Principal ---\n");
         printf("1 - Módulo Aluno\n");
         printf("2 - Módulo Professor\n");
+        printf("3 - Módulo Disciplinas\n");
+        printf("4 - Relatórios\n");
         printf("0 - Sair\nEscolha: ");
         scanf("%d", &opcao);
 
