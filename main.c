@@ -313,10 +313,60 @@ int main() {
                         case 2: listarProfessores(professores, qtdProf); break;
                         case 3:
                         case 4: 
+                        
                         case 5: // for de sexo aluno
+                        
+                            int i;
+                            char sexoEscolhido[20];
+                            printf("Digite o sexo (M/F/Masculino/Feminino): ");
+                            scanf(" %s", sexoEscolhido); 
+                            
+                            /* Transformar a entrada do usuário em uma versão mais simples (M ou F)
+                                if (strcmp(sexoEscolhido, "Masculino") == 0 || strcmp(sexoEscolhido, "M") == 0) {
+                                    strcpy(sexoEscolhido, "M"); }
+                                else if (strcmp(sexoEscolhido, "Feminino") == 0 || strcmp(sexoEscolhido, "F") == 0) {
+                                    strcpy(sexoEscolhido, "F"); } */
+
+                        
+                            for(i = 0; i < qtdAluno; i++){
+                            
+                                if(strcmp(sexoEscolhido, alunos[i].sexo) == 0) {
+                                    printf(" %s\n", alunos[i].nome);
+                                                                                }
+                                                                                  }
+                                break;                                                  
+                                                                                    
+
                         case 6:
                         case 7:
                         case 8: // for de sexo professor
+                            int j; 
+                            char sexoEscolhidoProf[20];
+                            int encontrou = 0;
+                            
+                            printf("Digite o sexo (M/F/Masculino/Feminino): \n");
+                            scanf(" %s", sexoEscolhidoProf);
+                            
+                            // Transformar a entrada do usuário em uma versão mais simples (M ou F) //
+                            if (strcmp(sexoEscolhidoProf, "Masculino") == 0 || strcmp(sexoEscolhidoProf, "M") == 0) {
+                                    strcpy(sexoEscolhidoProf, "M"); }
+                            else if (strcmp(sexoEscolhidoProf, "Feminino") == 0 || strcmp(sexoEscolhidoProf, "F") == 0) {
+                                    strcpy(sexoEscolhidoProf, "F"); } 
+                            else{
+                                printf("Sexo inválido!\n");
+                                break;
+                             }
+                            for (j = 0; j < qtdProf; j++) {
+                                if (strcmp(professores[j].sexo, sexoEscolhidoProf) == 0) {
+                                    printf(" %s\n", professores[j].nome);
+                                    encontrou = 1; }
+                            }
+                             
+                             if (!encontrou) {
+                                printf("Nenhum professor encontrado com esse sexo.\n"); }
+    
+                            break;
+                            
                         case 9: 
                         
                     }
@@ -329,8 +379,8 @@ int main() {
 
             default:
                 printf("Opção inválida.\n");
-        }
-
+        
+}
     } while (opcao != 0);
 
     return 0;
