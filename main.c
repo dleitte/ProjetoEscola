@@ -287,6 +287,41 @@ int main() {
                     default: printf("Opção inválida.\n");
                 }
                 break;
+                
+            case 4:
+                printf("\n==============================\n");
+                printf("     MENU DOS RELATÓRIOS     \n");
+                printf("==============================\n");
+
+                printf(
+                    "1 - Listar Alunos\n"
+                    "2 - Listar Professores\n"
+                    "3 - Listar Disciplinas\n"
+                    "4 - Listar uma Disciplina\n"
+                    "5 - Listar Alunos por Sexo\n"
+                    "6 - Listar Alunos ordenado por nome\n"
+                    "7 - Listar Alunos ordenado por Data de Nascimento\n"
+                    "8 - Listar professores por sexo\n"
+                    "9 - Listar professores ordenado por data de nascimento\n");
+                    scanf("%d", &sub);
+
+
+                    
+                    switch(sub){
+                        
+                        case 1: listarAlunos(alunos, qtdAluno); break;
+                        case 2: listarProfessores(professores, qtdProf); break;
+                        case 3:
+                        case 4: 
+                        case 5: // for de sexo aluno
+                        case 6:
+                        case 7:
+                        case 8: // for de sexo professor
+                        case 9: 
+                        
+                    }
+
+                break;
 
             case 0:
                 printf("Saindo...\n");
