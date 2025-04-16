@@ -338,6 +338,27 @@ int main() {
                                                                                     
 
                         case 6: // alunos por nome
+                        
+                            int k, l;
+                            char temporario[100];
+                            
+                            for(k = 0; k < qtdAluno - 1; k++){
+                                
+                                for(l = 0; l < qtdAluno - k - 1; l++){
+                                    if(strcmp(alunos[l].nome, alunos[l + 1].nome) > 0) {
+                                        strcpy(temporario, alunos[l].nome);
+                                        strcpy(alunos[l].nome, alunos[l + 1].nome);
+                                        strcpy(alunos[l + 1].nome, temporario);
+                                        
+                                    }
+                                }
+                            }
+                            printf("Lista dos nomes dos alunos em ordem alfabetica:\n");
+                            for(k = 0; k < qtdAluno; k++){
+                                printf("%s\n", alunos[k].nome);
+                            }
+                            break;
+                
                         case 7: // alunos por data de nascimento
                         case 8: // for de sexo professor
                             int j; 
