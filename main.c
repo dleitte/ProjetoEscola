@@ -311,8 +311,8 @@ int main() {
                         
                         case 1: listarAlunos(alunos, qtdAluno); break;
                         case 2: listarProfessores(professores, qtdProf); break;
-                        case 3:
-                        case 4: 
+                        case 3: // listar disciplinas
+                        case 4: // listar uma disciplina
                         
                         case 5: // for de sexo aluno
                         
@@ -337,8 +337,8 @@ int main() {
                                 break;                                                  
                                                                                     
 
-                        case 6:
-                        case 7:
+                        case 6: // alunos por nome
+                        case 7: // alunos por data de nascimento
                         case 8: // for de sexo professor
                             int j; 
                             char sexoEscolhidoProf[20];
@@ -362,13 +362,15 @@ int main() {
                                     encontrou = 1; }
                             }
                              
-                             if (!encontrou) {
-                                printf("Nenhum professor encontrado com esse sexo.\n"); }
-    
+                            
                             break;
                             
-                        case 9: 
-                        
+                        case 9: // prof por nome
+                        case 10: //prof por nascimento
+                        case 11: // aniversariante do mes
+                        case 12: // string de busca, listar nomes
+                        case 13: // lista de alunos em pelo menos 3 disciplinas
+                        case 14: // lista de disciplina q extrapolham 40 vagas
                     }
 
                 break;
