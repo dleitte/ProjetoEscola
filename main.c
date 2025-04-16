@@ -314,7 +314,7 @@ int main() {
                         case 3: // listar disciplinas
                         case 4: // listar uma disciplina
                         
-                        case 5: // for de sexo aluno
+                        case 5: // for de sexo aluno ✅
                         
                             int i;
                             char sexoEscolhido[20];
@@ -337,7 +337,7 @@ int main() {
                                 break;                                                  
                                                                                     
 
-                        case 6: // alunos por nome
+                        case 6: // alunos por nome ✅
                         
                             int k, l;
                             char temporario[100];
@@ -360,7 +360,7 @@ int main() {
                             break;
                 
                         case 7: // alunos por data de nascimento
-                        case 8: // for de sexo professor
+                        case 8: // for de sexo professor ✅
                             int j; 
                             char sexoEscolhidoProf[20];
                             int encontrou = 0;
@@ -387,6 +387,34 @@ int main() {
                             break;
                             
                         case 9: // prof por nome
+                        
+                            int m, n;
+                            char temp[100];
+                            
+                            for(m = 0; m < qtdProf - 1; m++){
+                                
+                                for(n = 0; n < qtdProf - m - 1; n++){
+                                    
+                                    if(strcmp(professores[n].nome, professores[n + 1].nome) > 0){
+                                        
+                                        strcpy(temp, professores[n].nome);
+                                        strcpy(professores[n].nome, professores[n + 1].nome);
+                                        strcpy(professores[n + 1].nome, temp);
+                                    }
+                                }
+                                
+                            }  
+                            printf("Lista dos Nomes dos professores em ordem alfabetica:\n");
+                            for(m = 0; m < qtdProf; m++) {
+                                
+                                printf("%s\n", professores[m].nome);
+                            }
+                            break;
+                
+                                                                        
+                            
+                            
+                            
                         case 10: //prof por nascimento
                         case 11: // aniversariante do mes
                         case 12: // string de busca, listar nomes
