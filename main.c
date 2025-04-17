@@ -506,6 +506,37 @@ void listarAlunosPorNascimento(Aluno alunos[], int qtdAluno) {
     }
 }
 
+void listarProfessoresPorNascimento(Professor professores[], int qtdProf){
+    
+     Professor copia[TAM_PROFESSOR];
+     memcpy(copia, professores, sizeof(Professor) * qtdProf);
+     int i, j, dataAtual, dataSeguinte;
+    
+    
+    for(i = 0; i < qtdProf - 1; i++){
+                                
+        for(j = 0; j < qtdProf - i - 1; j++){
+                                    
+            dataAtual = copia[j].ano * 10000 + copia[j].mes * 100 + copia[j].dia;
+            dataSeguinte = copia[j + 1].ano * 10000 + copia[j + 1].mes * 100 + copia[j + 1].dia;
+                                    
+            if(dataAtual > dataSeguinte){
+                                        
+                Professor temp = copia[j];
+                copia[j] = copia[j + 1];
+                copia[j + 1] = temp;
+            }                            
+        }                            
+                                
+    } 
+    for(i = 0; i < qtdProf; i++){
+                                
+        printf("Professor: %s\n", copia[i].nome);
+        printf("Data de Nascimento: %02d/%02d/%04d\n", copia[i].dia, copia[i].mes, copia[i].ano);
+    }                            
+                            
+                            
+}
 void listarProfessoresPorSexo(Professor professores[], int qtdProf) {
     char sexoEscolhido[20];
     printf("Digite o sexo (M/F/Masculino/Feminino): ");
@@ -530,6 +561,7 @@ void listarProfessoresPorSexo(Professor professores[], int qtdProf) {
 }
 
 void listarProfessoresPorNome(Professor professores[], int qtdProf) {
+    
     Professor copia[TAM_PROFESSOR];
     memcpy(copia, professores, sizeof(Professor) * qtdProf);
 
@@ -632,7 +664,7 @@ int main() {
                         case 7: listarAlunosPorNascimento(alunos, qtdAluno); break;
                         case 8: listarProfessoresPorSexo(professores, qtdProf); break;
                         case 9: listarProfessoresPorNome(professores, qtdProf); break;
-                        case 10: //prof por nascimento
+                        case 10: listarProfessoresPorNascimento(professores, qtdProf); break;
                         case 11: // aniversariante do mes
                         case 12: // string de busca, listar nomes
                         case 13: // lista de alunos em pelo menos 3 disciplinas
@@ -652,4 +684,5 @@ int main() {
     } while (opcao != 0);
 
     return 0;
-}
+} 
+    
