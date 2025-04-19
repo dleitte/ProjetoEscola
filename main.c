@@ -68,15 +68,43 @@ int validarData(int d, int m, int a) {
     return (d >= 1 && d <= diasPorMes[m - 1]);
 }
 
-int validarCPF(char cpf[]) {
-    int count = 0, i;
+int validarCPF(char *cpf) {
+    int i, j, soma, digito1, digito2;
+    char numeros[12] = {0};
+    int contador = 0;
+
     for (i = 0; cpf[i] != '\0'; i++) {
         if (cpf[i] >= '0' && cpf[i] <= '9') {
-            count++;
+            numeros[contador++] = cpf[i];
         }
     }
-    return (count == 11);
+
+    if (contador != 11) return 0;
+
+    for (i = 1; i < 11; i++) {
+        if (numeros[i] != numeros[0]) break;
+    }
+    if (i == 11) return 0;
+
+    soma = 0;
+    for (i = 0, j = 10; i < 9; i++, j--) {
+        soma += (numeros[i] - '0') * j;
+    }
+
+    digito1 = 11 - (soma % 11);
+    if (digito1 >= 10) digito1 = 0;
+    
+    soma = 0;
+    for (i = 0, j = 11; i < 10; i++, j--) {
+        soma += (numeros[i] - '0') * j;
+    }
+
+    digito2 = 11 - (soma % 11);
+    if (digito2 >= 10) digito2 = 0;
+    
+    return (numeros[9] - '0' == digito1 && numeros[10] - '0' == digito2);
 }
+
 
 void incluirAluno(Aluno alunos[], int* qtd) {
     if (*qtd >= TAM_ALUNO) {
@@ -108,7 +136,17 @@ void incluirAluno(Aluno alunos[], int* qtd) {
     if (!validarData(novo.dia, novo.mes, novo.ano)) return;
     printf("CPF: ");
     scanf("%s", novo.cpf);
-    if (!validarCPF(novo.cpf)) return;
+    if (!validarCPF(novo.cpf)) {
+        printf("CPF inválido.\n");
+        return;
+    }
+    
+    for (i = 0; i < *qtd; i++) {
+        if (strcmp(alunos[i].cpf, novo.cpf) == 0) {
+            printf("CPF já cadastrado para outro aluno.\n");
+            return;
+        }
+    }
 
     alunos[*qtd] = novo;
     (*qtd)++;
@@ -180,7 +218,7 @@ void incluirProfessor(Professor profs[], int* qtd) {
 
     printf("\n--- Incluir Professor ---\n");
     printf("Nome: ");
-    getchar();
+    getchar(); 
     fgets(novo.nome, 100, stdin);
     for (i = 0; novo.nome[i] != '\0'; i++) {
         if (novo.nome[i] == '\n') novo.nome[i] = '\0';
@@ -191,12 +229,24 @@ void incluirProfessor(Professor profs[], int* qtd) {
     printf("Sexo (M/F/Masculino/Feminino): ");
     scanf("%s", novo.sexo);
     if (!validarSexo(novo.sexo)) return;
+
     printf("Data nascimento (dd mm aaaa): ");
     scanf("%d %d %d", &novo.dia, &novo.mes, &novo.ano);
     if (!validarData(novo.dia, novo.mes, novo.ano)) return;
+
     printf("CPF: ");
     scanf("%s", novo.cpf);
-    if (!validarCPF(novo.cpf)) return;
+    if (!validarCPF(novo.cpf)) {
+        printf("CPF inválido.\n");
+        return;
+    }
+
+    for (i = 0; i < *qtd; i++) {
+        if (strcmp(profs[i].cpf, novo.cpf) == 0) {
+            printf("CPF já cadastrado para outro professor.\n");
+            return;
+        }
+    }
 
     profs[*qtd] = novo;
     (*qtd)++;
