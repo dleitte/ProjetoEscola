@@ -625,6 +625,20 @@ void listarAlunoAniversariantesMes(Aluno alunos[], int qtdAluno, int mesEscolhid
     }                   
     
 }
+void listarAniversariantesMes(Professor professores[], int qtdProf, Aluno alunos[], int qtdAluno) {
+    int mesEscolhido;
+    printf("Digite o mês escolhido (1-12): ");
+    scanf("%d", &mesEscolhido);
+
+    if (mesEscolhido < 1 || mesEscolhido > 12) {
+        printf("Mês inválido. Insira um valor entre 1 e 12.\n");
+        return;
+    }
+
+    printf("\n--- Aniversariantes do mês %d ---\n", mesEscolhido);
+    listarProfAniversariantesMes(professores, qtdProf, mesEscolhido);
+    listarAlunoAniversariantesMes(alunos, qtdAluno, mesEscolhido);
+}
 
 int main() {
     Aluno alunos[TAM_ALUNO];
@@ -710,20 +724,7 @@ int main() {
                         case 8: listarProfessoresPorSexo(professores, qtdProf); break;
                         case 9: listarProfessoresPorNome(professores, qtdProf); break;
                         case 10: listarProfessoresPorNascimento(professores, qtdProf); break;
-
-                        case 11: // aniversariante do mes
-                        
-                            int mesEscolhido;
-                            printf("Digite o mês escolhido:\n");
-                            scanf("%d", &mesEscolhido);
-                            
-                            listarProfAniversariantesMes(professores, qtdProf, mesEscolhido);
-                            listarAlunoAniversariantesMes(alunos, qtdAluno, mesEscolhido);
-                            break;
-
-
-                        
-                       
+                        case 11: listarAniversariantesMes(professores, qtdProf, alunos, qtdAluno); break;
                         case 12: // string de busca, listar nomes
                         case 13: // lista de alunos em pelo menos 3 disciplinas
                         case 14: // lista de disciplina q extrapolham 40 vagas
