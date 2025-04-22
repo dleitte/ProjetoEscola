@@ -1,21 +1,17 @@
 #ifndef ALUNO_H
 #define ALUNO_H
 
+#define TAM_ALUNO 3
+
 typedef struct {
-    int id;
-    char nome[100];
-    int idade;
+    char nome[50];
     char sexo;
-    char dataNascimento[11];
-    int disciplinas[10];  // Disciplinas que o aluno está matriculado
-    int qtdDisciplinas;
+    char dataNascimento[11]; // dd/mm/aaaa
 } Aluno;
 
-void cadastrarAluno(Aluno alunos[], int *qtdAlunos);
+void incluirAluno(Aluno alunos[], int* qtdAlunos);
 void listarAlunos(Aluno alunos[], int qtdAlunos);
-void buscarAlunoPorNome(Aluno alunos[], int qtdAlunos, const char* nome);
-void listarAlunosPorSexo(Aluno alunos[], int qtdAlunos, char sexo);
-void listarAlunosOrdenadosPorNome(Aluno alunos[], int qtdAlunos);
-void listarAlunosOrdenadosPorData(Aluno alunos[], int qtdAlunos);
+void atualizarAluno(Aluno alunos[], int qtdAlunos);
+void excluirAluno(Aluno alunos[], int* qtdAlunos);
 
 #endif
