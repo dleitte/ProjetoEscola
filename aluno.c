@@ -1,74 +1,105 @@
 #include <stdio.h>
 #include <string.h>
 #include "aluno.h"
+#include "utils.h"  
 
-void incluirAluno(Aluno alunos[], int* qtdAlunos) {
-    if (*qtdAlunos < TAM_ALUNO) {
-        Aluno novoAluno;
-        printf("\nNome do Aluno: ");
-        scanf(" %[^\n]s", novoAluno.nome);
-        printf("Sexo (M/F): ");
-        scanf(" %c", &novoAluno.sexo);
-        printf("Data de Nascimento (dd/mm/aaaa): ");
-        scanf(" %s", novoAluno.dataNascimento);
-        
-        alunos[*qtdAlunos] = novoAluno;
-        (*qtdAlunos)++;
-        printf("Aluno incluído com sucesso!\n");
-    } else {
-        printf("Limite de alunos atingido!\n");
+void incluirAluno(Aluno alunos[], int* qtd) {
+    if (*qtd >= TAM_ALUNO) {
+        printf("Limite de alunos atingido.\n");
+        return;
     }
-}
 
-void listarAlunos(Aluno alunos[], int qtdAlunos) {
-    if (qtdAlunos == 0) {
-        printf("Nenhum aluno cadastrado.\n");
-    } else {
-        for (int i = 0; i < qtdAlunos; i++) {
-            printf("\nAluno %d:\n", i + 1);
-            printf("Nome: %s\n", alunos[i].nome);
-            printf("Sexo: %c\n", alunos[i].sexo);
-            printf("Data de Nascimento: %s\n", alunos[i].dataNascimento);
+    Aluno novo;
+    int i;
+
+    printf("\n--- Incluir Aluno ---\n");
+    printf("Nome: ");
+    getchar();
+    fgets(novo.nome, 100, stdin);
+    for (i = 0; novo.nome[i] != '\0'; i++) {
+        if (novo.nome[i] == '\n') {
+            novo.nome[i] = '\0';
+            break;
         }
     }
-}
 
-void atualizarAluno(Aluno alunos[], int qtdAlunos) {
-    int i;
-    char nome[50];
-    printf("\nDigite o nome do aluno para atualizar: ");
-    scanf(" %[^\n]s", nome);
+    printf("Matrícula: ");
+    scanf("%d", &novo.matricula);
+    printf("Sexo (M/F/Masculino/Feminino): ");
+    scanf("%s", novo.sexo);
+    if (!validarSexo(novo.sexo)) return;
+    printf("Data nascimento (dd mm aaaa): ");
+    scanf("%d %d %d", &novo.dia, &novo.mes, &novo.ano);
+    if (!validarData(novo.dia, novo.mes, novo.ano)) return;
+    printf("CPF: ");
+    scanf("%s", novo.cpf);
+    if (!validarCPF(novo.cpf)) {
+        printf("CPF inválido.\n");
+        return;
+    }
     
-    for (i = 0; i < qtdAlunos; i++) {
-        if (strcmp(alunos[i].nome, nome) == 0) {
-            printf("Novo nome: ");
-            scanf(" %[^\n]s", alunos[i].nome);
-            printf("Novo sexo (M/F): ");
-            scanf(" %c", &alunos[i].sexo);
-            printf("Nova data de nascimento (dd/mm/aaaa): ");
-            scanf(" %s", alunos[i].dataNascimento);
-            printf("Aluno atualizado com sucesso!\n");
+    for (i = 0; i < *qtd; i++) {
+        if (strcmp(alunos[i].cpf, novo.cpf) == 0) {
+            printf("CPF já cadastrado para outro aluno.\n");
             return;
         }
     }
-    printf("Aluno não encontrado!\n");
+
+    alunos[*qtd] = novo;
+    (*qtd)++;
+    printf("Aluno cadastrado com sucesso!\n");
 }
 
-void excluirAluno(Aluno alunos[], int* qtdAlunos) {
+void listarAlunos(Aluno alunos[], int qtd) {
     int i;
-    char nome[50];
-    printf("\nDigite o nome do aluno para excluir: ");
-    scanf(" %[^\n]s", nome);
-    
-    for (i = 0; i < *qtdAlunos; i++) {
-        if (strcmp(alunos[i].nome, nome) == 0) {
-            for (int j = i; j < *qtdAlunos - 1; j++) {
+    printf("\n--- Lista de Alunos ---\n");
+    for (i = 0; i < qtd; i++) {
+        printf("\nNome: %s\n", alunos[i].nome);
+        printf("Matrícula: %d\n", alunos[i].matricula);
+        printf("Sexo: %s\n", alunos[i].sexo);
+        printf("Nascimento: %02d/%02d/%d\n", alunos[i].dia, alunos[i].mes, alunos[i].ano);
+        printf("CPF: %s\n", alunos[i].cpf);
+    }
+}
+
+void atualizarAluno(Aluno alunos[], int qtd) {
+    int mat, i;
+    printf("Digite matrícula para atualizar: ");
+    scanf("%d", &mat);
+    for (i = 0; i < qtd; i++) {
+        if (alunos[i].matricula == mat) {
+            printf("Novo nome: ");
+            getchar();
+            fgets(alunos[i].nome, 100, stdin);
+            for (int j = 0; alunos[i].nome[j] != '\0'; j++) {
+                if (alunos[i].nome[j] == '\n') alunos[i].nome[j] = '\0';
+            }
+            printf("Novo sexo: ");
+            scanf("%s", alunos[i].sexo);
+            printf("Nova data nascimento (dd mm aaaa): ");
+            scanf("%d %d %d", &alunos[i].dia, &alunos[i].mes, &alunos[i].ano);
+            printf("Novo CPF: ");
+            scanf("%s", alunos[i].cpf);
+            printf("Aluno atualizado.\n");
+            return;
+        }
+    }
+    printf("Matrícula não encontrada.\n");
+}
+
+void excluirAluno(Aluno alunos[], int* qtd) {
+    int mat, i, j;
+    printf("Digite matrícula para excluir: ");
+    scanf("%d", &mat);
+    for (i = 0; i < *qtd; i++) {
+        if (alunos[i].matricula == mat) {
+            for (j = i; j < *qtd - 1; j++) {
                 alunos[j] = alunos[j + 1];
             }
-            (*qtdAlunos)--;
-            printf("Aluno excluído com sucesso!\n");
+            (*qtd)--;
+            printf("Aluno excluído.\n");
             return;
         }
     }
-    printf("Aluno não encontrado!\n");
+    printf("Matrícula não encontrada.\n");
 }
