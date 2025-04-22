@@ -1,16 +1,25 @@
 #ifndef DISCIPLINA_H
 #define DISCIPLINA_H
 
+#include "aluno.h"
+#include "professor.h"
+
+#define TAM_DISCIPLINA 3
+#define MAX_ALUNOS_POR_DISCIPLINA 50
+
 typedef struct {
-    int id;
     char nome[100];
-    int alunosMatriculados[40]; // IDs dos alunos matriculados
+    char codigo[20];
+    int semestre;
+    int matriculaProfessor;
+    int alunosMatriculados[MAX_ALUNOS_POR_DISCIPLINA];
     int qtdAlunos;
-    int professorId;  // ID do professor responsável
 } Disciplina;
 
-void cadastrarDisciplina(Disciplina disciplinas[], int *qtdDisciplinas);
-void listarDisciplinas(Disciplina disciplinas[], int qtdDisciplinas);
-void listarDisciplinaComAlunos(Disciplina disciplinas[], int qtdDisciplinas, int idDisciplina);
+void incluirDisciplina(Disciplina disciplinas[], int* qtdDisc, Professor professores[], int qtdProf);
+void listarDisciplinas(Disciplina disciplinas[], int qtdDisc, Professor professores[], int qtdProf);
+void inserirAlunoEmDisciplina(Disciplina disciplinas[], int qtdDisc, Aluno alunos[], int qtdAlunos);
+void removerAlunoDeDisciplina(Disciplina disciplinas[], int qtdDisc);
+void listarDisciplinaComAlunos(Disciplina disciplinas[], int qtdDisc, Aluno alunos[], int qtdAlunos, Professor professores[], int qtdProf);
 
 #endif
