@@ -3,6 +3,7 @@
 #include "disciplina.h"
 #include "aluno.h"
 #include "professor.h"
+#include "variaveis.h"
 
 void incluirDisciplina(Disciplina disciplinas[], int* qtdDisc, Professor professores[], int qtdProf) {
     if (*qtdDisc >= TAM_DISCIPLINA) {

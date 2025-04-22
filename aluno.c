@@ -3,6 +3,7 @@
 #include "aluno.h"
 #include "utils.h"  
 #include "professor.h"
+#include "variaveis.h"
 
 void incluirAluno(Aluno alunos[], int* qtd) {
     if (*qtd >= TAM_ALUNO) {

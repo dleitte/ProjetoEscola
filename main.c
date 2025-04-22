@@ -4,6 +4,7 @@
 #include "professor.h"
 #include "disciplina.h"
 #include "utils.h"
+#include "variaveis.h"
 
 int main() {
     Aluno alunos[TAM_ALUNO];

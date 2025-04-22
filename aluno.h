@@ -1,15 +1,7 @@
 #ifndef ALUNO_H
 #define ALUNO_H
 
-#define TAM_ALUNO 3
-
-typedef struct {
-    char nome[100];
-    int matricula;
-    char sexo[20];
-    int dia, mes, ano;
-    char cpf[15];
-} Aluno;
+#include "variaveis.h"
 
 void incluirAluno(Aluno alunos[], int* qtd);
 void listarAlunos(Aluno alunos[], int qtd);
@@ -21,5 +13,6 @@ void listarAlunosPorNascimento(Aluno alunos[], int qtdAluno);
 void listarAlunoAniversariantesMes(Aluno alunos[], int qtdAluno, int mesEscolhido);
 void listarAniversariantesMes(Professor professores[], int qtdProf, Aluno alunos[], int qtdAluno);
 void buscarPorNomeSubstring(Aluno alunos[], int qtdAluno, Professor professores[], int qtdProf);
+void listarAlunosComMenosDeTresDisciplinas(Aluno alunos[], int qtdAlunos, Disciplina disciplinas[], int qtdDisc);
 
 #endif
