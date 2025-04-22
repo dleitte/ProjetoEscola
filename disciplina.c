@@ -184,3 +184,35 @@ void listarDisciplinaComAlunos(Disciplina disciplinas[], int qtdDisc, Aluno alun
         printf("\n");
     }
 }
+void listarDisciplinasComMaisDe40Alunos(Disciplina disciplinas[], int qtdDisc, Professor professores[], int qtdProf) {
+    printf("\n--- Disciplinas com mais de 40 alunos ---\n");
+    int encontrou = 0;
+
+    for (int i = 0; i < qtdDisc; i++) {
+        if (disciplinas[i].qtdAlunos > 40) {
+            printf("Nome da Disciplina: %s\n", disciplinas[i].nome);
+            printf("Código: %s\n", disciplinas[i].codigo);
+            printf("Quantidade de Alunos: %d\n", disciplinas[i].qtdAlunos);
+
+            int achouProf = 0;
+            for (int j = 0; j < qtdProf; j++) {
+                if (professores[j].matricula == disciplinas[i].matriculaProfessor) {
+                    printf("Professor Responsável: %s\n", professores[j].nome);
+                    achouProf = 1;
+                    break;
+                }
+            }
+
+            if (!achouProf) {
+                printf("Professor Responsável: [NÃO ENCONTRADO]\n");
+            }
+
+            printf("-----------------------------\n");
+            encontrou = 1;
+        }
+    }
+
+    if (!encontrou) {
+        printf("Nenhuma disciplina excedeu o limite de 40 alunos.\n");
+    }
+}
