@@ -3,107 +3,115 @@
 #include "aluno.h"
 #include "professor.h"
 #include "disciplina.h"
+#include "utils.h"
 
 int main() {
     Aluno alunos[TAM_ALUNO];
     Professor professores[TAM_PROFESSOR];
     Disciplina disciplinas[TAM_DISCIPLINA];
-    
-    int qtdAlunos = 0, qtdProfessores = 0, qtdDisciplinas = 0;
-    int opcao;
+    int qtdAluno = 0, qtdProf = 0, qtdDisc = 0;
+    int opcao, sub;
 
     do {
-        printf("\n--- Menu ---\n");
-        printf("1. Incluir Aluno\n");
-        printf("2. Listar Alunos\n");
-        printf("3. Atualizar Aluno\n");
-        printf("4. Excluir Aluno\n");
-        printf("5. Incluir Professor\n");
-        printf("6. Listar Professores\n");
-        printf("7. Atualizar Professor\n");
-        printf("8. Excluir Professor\n");
-        printf("9. Incluir Disciplina\n");
-        printf("10. Listar Disciplinas\n");
-        printf("11. Inserir Aluno em Disciplina\n");
-        printf("12. Remover Aluno de Disciplina\n");
-        printf("13. Listar Disciplinas com Alunos\n");
-        printf("14. Listar Alunos por Sexo\n");
-        printf("15. Listar Alunos por Nome\n");
-        printf("16. Listar Alunos por Nascimento\n");
-        printf("17. Listar Professores por Sexo\n");
-        printf("18. Listar Professores por Nome\n");
-        printf("19. Listar Professores por Nascimento\n");
-        printf("0. Sair\n");
-        printf("Escolha uma opção: ");
+        printf("\n--- Menu Principal ---\n");
+        printf("1 - Módulo Aluno\n");
+        printf("2 - Módulo Professor\n");
+        printf("3 - Módulo Disciplinas\n");
+        printf("4 - Relatórios\n");
+        printf("0 - Sair\nEscolha: ");
         scanf("%d", &opcao);
-        
-        switch(opcao) {
+
+        switch (opcao) {
             case 1:
-                incluirAluno(alunos, &qtdAlunos);
+                printf("\n--- Menu Aluno ---\n");
+                printf("1 - Incluir\n2 - Atualizar\n3 - Excluir\nEscolha: ");
+                scanf("%d", &sub);
+                switch (sub) {
+                    case 1: incluirAluno(alunos, &qtdAluno); break;
+                    case 2: atualizarAluno(alunos, qtdAluno); break;
+                    case 3: excluirAluno(alunos, &qtdAluno); break;
+                    default: printf("Opção inválida.\n");
+                }
                 break;
+
             case 2:
-                listarAlunos(alunos, qtdAlunos);
+                printf("\n--- Menu Professor ---\n");
+                printf("1 - Incluir\n2 - Atualizar\n3 - Excluir\nEscolha: ");
+                scanf("%d", &sub);
+                switch (sub) {
+                    case 1: incluirProfessor(professores, &qtdProf); break;
+                    case 2: atualizarProfessor(professores, qtdProf); break;
+                    case 3: excluirProfessor(professores, &qtdProf); break;
+                    default: printf("Opção inválida.\n");
+                }
                 break;
+            
             case 3:
-                atualizarAluno(alunos, qtdAlunos);
+                printf("\n--- Menu Disciplina ---\n");
+                printf("1 - Incluir Disciplina\n2 - Inserir Aluno\n3 - Remover Aluno\nEscolha: ");
+                scanf("%d", &sub);
+                    switch (sub) {
+                        case 1: incluirDisciplina(disciplinas, &qtdDisc, professores, qtdProf); break;
+                        case 2: inserirAlunoEmDisciplina(disciplinas, qtdDisc, alunos, qtdAluno); break;
+                        case 3: removerAlunoDeDisciplina(disciplinas, qtdDisc); break;
+                        default: printf("Opção inválida.\n");
+                }
                 break;
+
             case 4:
-                excluirAluno(alunos, &qtdAlunos);
-                break;
-            case 5:
-                incluirProfessor(professores, &qtdProfessores);
-                break;
-            case 6:
-                listarProfessores(professores, qtdProfessores);
-                break;
-            case 7:
-                atualizarProfessor(professores, qtdProfessores);
-                break;
-            case 8:
-                excluirProfessor(professores, &qtdProfessores);
-                break;
-            case 9:
-                incluirDisciplina(disciplinas, &qtdDisciplinas, professores, qtdProfessores);
-                break;
-            case 10:
-                listarDisciplinas(disciplinas, qtdDisciplinas, professores, qtdProfessores);
-                break;
-            case 11:
-                inserirAlunoEmDisciplina(disciplinas, qtdDisciplinas, alunos, qtdAlunos);
-                break;
-            case 12:
-                removerAlunoDeDisciplina(disciplinas, qtdDisciplinas);
-                break;
-            case 13:
-                listarDisciplinaComAlunos(disciplinas, qtdDisciplinas, alunos, qtdAlunos, professores, qtdProfessores);
-                break;
-            case 14:
-                listarAlunosPorSexo(alunos, qtdAlunos);
-                break;
-            case 15:
-                listarAlunosPorNome(alunos, qtdAlunos);
-                break;
-            case 16:
-                listarAlunosPorNascimento(alunos, qtdAlunos);
-                break;
-            case 17:
-                listarProfessoresPorSexo(professores, qtdProfessores);
-                break;
-            case 18:
-                listarProfessoresPorNome(professores, qtdProfessores);
-                break;
-            case 19:
-                listarProfessoresPorNascimento(professores, qtdProfessores);
-                break;
+                printf("\n==============================\n");
+                printf("     MENU DOS RELATÓRIOS     \n");
+                printf("==============================\n");
+
+                printf(
+                    "1 - Listar Alunos\n"
+                    "2 - Listar Professores\n"
+                    "3 - Listar Disciplinas(sem dados dos alunos)\n"
+                    "4 - Listar uma Disciplina(com dados dos alunos)\n"
+                    "5 - Listar Alunos por Sexo\n"
+                    "6 - Listar Alunos ordenado por nome\n"
+                    "7 - Listar Alunos ordenado por Data de Nascimento\n"
+                    "8 - Listar professores por sexo\n"
+                    "9 - Listar professores ordenado por nome\n"
+                    "10 - Listar Professores por Data de Nascimento\n"
+                    "11 - Listar Aniversariantes do Mês\n"
+                    "12 - Buscar Aluno/Professor pelo Nome (mín. 3 letras)\n"
+                    "13 - Listar Alunos com menos de 3 Disciplinas\n"
+                    "14 - Listar Disciplinas com mais de 40 Alunos e Professor Responsável\n"
+                    "Escolha: ");
+                scanf("%d", &sub);
+
+
+
+                    
+                    switch(sub){
+                        
+                        case 1: listarAlunos(alunos, qtdAluno); break;
+                        case 2: listarProfessores(professores, qtdProf); break;
+                        case 3: listarDisciplinas(disciplinas, qtdDisc, professores, qtdProf); break;
+                        case 4: listarDisciplinaComAlunos(disciplinas, qtdDisc, alunos, qtdAluno, professores, qtdProf); break;
+                        case 5: listarAlunosPorSexo(alunos, qtdAluno); break;                                     
+                        case 6: listarAlunosPorNome(alunos, qtdAluno); break;
+                        case 7: listarAlunosPorNascimento(alunos, qtdAluno); break;
+                        case 8: listarProfessoresPorSexo(professores, qtdProf); break;
+                        case 9: listarProfessoresPorNome(professores, qtdProf); break;
+                        case 10: listarProfessoresPorNascimento(professores, qtdProf); break;
+                        case 11: listarAniversariantesMes(professores, qtdProf, alunos, qtdAluno); break;
+                        case 12: buscarPorNomeSubstring(alunos, qtdAluno, professores, qtdProf); break;
+                        case 13: listarAlunosComMenosDeTresDisciplinas(alunos, qtdAluno, disciplinas, qtdDisc); break;
+                        case 14: listarDisciplinasComMaisDe40Alunos(disciplinas, qtdDisc, professores, qtdProf); break;
+                    }
+                    break;
+
             case 0:
                 printf("Saindo...\n");
                 break;
+
             default:
-                printf("Opção inválida! Tente novamente.\n");
-                break;
-        }
+                printf("Opção inválida.\n");
+        
+}
     } while (opcao != 0);
 
     return 0;
-}
-
+} 
