@@ -103,5 +103,102 @@ void excluirProfessor(Professor profs[], int* qtd) {
     }
     printf("Matrícula não encontrada.\n");
 }
+void listarProfessoresPorNascimento(Professor professores[], int qtdProf){
+    
+     Professor copia[TAM_PROFESSOR];
+     memcpy(copia, professores, sizeof(Professor) * qtdProf);
+     int i, j, dataAtual, dataSeguinte;
+    
+    
+    for(i = 0; i < qtdProf - 1; i++){
+                                
+        for(j = 0; j < qtdProf - i - 1; j++){
+                                    
+            dataAtual = copia[j].ano * 10000 + copia[j].mes * 100 + copia[j].dia;
+            dataSeguinte = copia[j + 1].ano * 10000 + copia[j + 1].mes * 100 + copia[j + 1].dia;
+                                    
+            if(dataAtual > dataSeguinte){
+                                        
+                Professor temp = copia[j];
+                copia[j] = copia[j + 1];
+                copia[j + 1] = temp;
+            }                            
+        }                            
+                                
+    } 
+    for(i = 0; i < qtdProf; i++){
+                                
+        printf("Professor: %s\n", copia[i].nome);
+        printf("Data de Nascimento: %02d/%02d/%04d\n", copia[i].dia, copia[i].mes, copia[i].ano);
+    }                            
+                            
+                            
+}
+void listarProfessoresPorSexo(Professor professores[], int qtdProf) {
+    char sexoEscolhido[20];
+    printf("Digite o sexo (M/F/Masculino/Feminino): ");
+    scanf(" %s", sexoEscolhido);
+
+    if (!validarSexo(sexoEscolhido)) {
+        printf("Sexo inválido.\n");
+        return;
+    }
+
+    toLowerStr(sexoEscolhido);
+
+    printf("Professores do sexo %s:\n", sexoEscolhido);
+    for (int i = 0; i < qtdProf; i++) {
+        char sexoProf[20];
+        strcpy(sexoProf, professores[i].sexo);
+        toLowerStr(sexoProf);
+        if (strcmp(sexoProf, sexoEscolhido) == 0) {
+            printf(" %s\n", professores[i].nome);
+        }
+    }
+}
+
+void listarProfessoresPorNome(Professor professores[], int qtdProf) {
+    
+    Professor copia[TAM_PROFESSOR];
+    memcpy(copia, professores, sizeof(Professor) * qtdProf);
+
+    for (int i = 0; i < qtdProf - 1; i++) {
+        for (int j = 0; j < qtdProf - i - 1; j++) {
+            if (strcmp(copia[j].nome, copia[j + 1].nome) > 0) {
+                Professor temp = copia[j];
+                copia[j] = copia[j + 1];
+                copia[j + 1] = temp;
+            }
+        }
+    }
+    
+
+    printf("Professores em ordem alfabética:\n");
+    for (int i = 0; i < qtdProf; i++) {
+        printf(" %s\n", copia[i].nome);
+    }
+}
+
+void listarProfAniversariantesMes(Professor professores[], int qtdProf, int mesEscolhido){
+    
+    int i;
+    
+    printf("Aniversariantes do mês %d:\n", mesEscolhido);
+    int encontrou = 0;
+
+    for(i = 0; i < qtdProf; i++){
+                            
+        if(professores[i].mes == mesEscolhido){
+            printf("Nome: %s\n", professores[i].nome);
+            encontrou = 1;
+        }                    
+    }                        
+                        
+                        
+    if(!encontrou){
+        printf("Não há aniversariantes nesse mes\n");
+    }                   
+    
+}
 
 
