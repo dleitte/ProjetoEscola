@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "professor.h"
-#include "utils.h"  // pra validarSexo, validarData e validarCPF
+#include "utils.h"
+#include "aluno.h"
 
 void incluirProfessor(Professor profs[], int* qtd) {
     if (*qtd >= TAM_PROFESSOR) {
